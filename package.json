@@ -12,6 +12,16 @@
   "activationEvents": [],
   "main": "./dist/extension.js",
   "contributes": {
+    "configuration": {
+      "title": "elixir-tools",
+      "properties": {
+        "elixir-tools.credo.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether to start the Credo Language Server."
+        }
+      }
+    },
     "languages": [
       {
         "id": "elixir",

@@ -1,7 +1,4 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
-// import { workspace } from "vscode";
 
 import {
   Executable,
@@ -9,38 +6,43 @@ import {
   LanguageClientOptions,
 } from "vscode-languageclient/node";
 
-let client: LanguageClient;
+let credoClient: LanguageClient;
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
-export function activate(_context: vscode.ExtensionContext) {
-  // Options to control the language client
-  //
-  const serverOptions: Executable = {
-    command: "mix",
-    args: ["credo.lsp", "--stdio"],
-  };
-  const clientOptions: LanguageClientOptions = {
-    // Register the server for plain text documents
-    documentSelector: [{ scheme: "file", language: "elixir" }],
-  };
+export async function activate(_context: vscode.ExtensionContext) {
+  let files = await vscode.workspace.findFiles("mix.exs");
 
-  // Create the language client and start the client.
-  client = new LanguageClient(
-    "elixir-tools.credo",
-    "Credo",
-    serverOptions,
-    clientOptions
-  );
+  let config = vscode.workspace.getConfiguration("elixir-tools.credo");
 
-  // Start the client. This will also launch the server
-  client.start();
+  if (files[0]) {
+    let text = await vscode.workspace.fs.readFile(files[0]);
+
+    if (text.toString().includes("{:credo")) {
+      if (config.get("enabled")) {
+        const serverOptions: Executable = {
+          command: "mix",
+          args: ["credo.lsp", "--stdio"],
+        };
+        const clientOptions: LanguageClientOptions = {
+          documentSelector: [{ scheme: "file", language: "elixir" }],
+        };
+
+        credoClient = new LanguageClient(
+          "elixir-tools.credo",
+          "Credo",
+          serverOptions,
+          clientOptions
+        );
+
+        // Start the credoClient. This will also launch the server
+        credoClient.start();
+      }
+    }
+  }
 }
 
-// This method is called when your extension is deactivated
 export function deactivate() {
-  if (!client) {
+  if (!credoClient) {
     return undefined;
   }
-  return client.stop();
+  return credoClient.stop();
 }
