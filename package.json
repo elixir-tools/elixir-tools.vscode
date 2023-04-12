@@ -1,5 +1,5 @@
 {
-  "name": "elixir-tools",
+  "name": "elixir-tools.vscode",
   "displayName": "elixir-tools.vscode",
   "description": "Elixir extension for VSCode.",
   "version": "0.0.1",
@@ -7,7 +7,7 @@
     "vscode": "^1.77.0"
   },
   "categories": [
-    "Other"
+    "Programming"
   ],
   "activationEvents": [],
   "main": "./dist/extension.js",
@@ -21,10 +21,12 @@
         ]
       }
     ],
-    "commands": [
+    "commands": [],
+    "grammars": [
       {
-        "command": "elixir-tools.helloWorld",
-        "title": "Hello World"
+        "language": "elixir",
+        "scopeName": "source.elixir",
+        "path": "./syntaxes/elixir.json"
       }
     ]
   },
