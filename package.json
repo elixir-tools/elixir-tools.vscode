@@ -1,5 +1,5 @@
 {
-  "name": "elixir-tools.vscode",
+  "name": "elixir-tools",
   "displayName": "elixir-tools.vscode",
   "description": "Elixir extension for VSCode.",
   "version": "0.0.1",
