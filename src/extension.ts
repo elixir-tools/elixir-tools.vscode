@@ -17,7 +17,7 @@ export async function activate(_context: vscode.ExtensionContext) {
     let text = await vscode.workspace.fs.readFile(files[0]);
 
     if (text.toString().includes("{:credo")) {
-      if (config.get("enabled")) {
+      if (config.get("enable")) {
         const serverOptions: Executable = {
           command: "mix",
           args: ["credo.lsp", "--stdio"],

@@ -15,7 +15,7 @@
     "configuration": {
       "title": "elixir-tools",
       "properties": {
-        "elixir-tools.credo.enabled": {
+        "elixir-tools.credo.enable": {
           "type": "boolean",
           "default": true,
           "description": "Whether to start the Credo Language Server."
