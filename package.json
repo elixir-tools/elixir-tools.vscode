@@ -1,8 +1,18 @@
 {
   "name": "elixir-tools",
   "displayName": "elixir-tools.vscode",
+  "homepage": "https://github.com/elixir-tools/elixir-tools.vscode",
   "description": "Elixir extension for VSCode.",
+  "publisher": "elixir-tools",
   "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/elixir-tools/elixir-tools.vsode.git"
+  },
+  "icon": "images/logo.png",
+  "sponsor": {
+    "url": "https://github.com/sponsors/mhanberg"
+  },
   "engines": {
     "vscode": "^1.77.0"
   },
