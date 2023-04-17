@@ -10,7 +10,9 @@ elixir-tools.vscode provides support for:
 
 ## Install
 
-Currently you must install from source.
+Install from the extension [marketplace](https://marketplace.visualstudio.com/items?itemName=elixir-tools.elixir-tools).
+
+### From Source
 
 ```bash
 # package up the extension into a .vsix file
