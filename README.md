@@ -19,5 +19,5 @@ Install from the extension [marketplace](https://marketplace.visualstudio.com/it
 $ npx vsce package
 
 # install the .vsix package
-$ code --install-extension elixir-tools-0.0.1.vsix --force
+$ code --install-extension elixir-tools-0.0.2.vsix --force
 ```
