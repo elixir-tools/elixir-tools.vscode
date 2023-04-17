@@ -8,7 +8,7 @@ import {
 
 let credoClient: LanguageClient;
 
-export async function activate(_context: vscode.ExtensionContext) {
+export async function activate(context: vscode.ExtensionContext) {
   let files = await vscode.workspace.findFiles("mix.exs");
 
   let config = vscode.workspace.getConfiguration("elixir-tools.credo");
@@ -19,8 +19,8 @@ export async function activate(_context: vscode.ExtensionContext) {
     if (text.toString().includes("{:credo")) {
       if (config.get("enable")) {
         const serverOptions: Executable = {
-          command: "mix",
-          args: ["credo.lsp", "--stdio"],
+          command: context.asAbsolutePath("./bin/credo-language-server"),
+          args: ["--stdio"],
         };
         const clientOptions: LanguageClientOptions = {
           documentSelector: [{ scheme: "file", language: "elixir" }],
