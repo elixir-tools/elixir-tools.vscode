@@ -34,6 +34,18 @@
           "type": "boolean",
           "default": true,
           "description": "Whether to start the Credo Language Server."
+        },
+        "elixir-tools.credo.adapter": {
+          "type": "string",
+          "enum": ["stdio", "tcp"],
+          "default": "stdio",
+          "description": "Which adapter to use when connecting to credo-language-server"
+
+        },
+        "elixir-tools.credo.port": {
+          "type": "integer",
+           "default": 9000,
+          "description": "If adapter is `tcp`, use this port to connect."
         }
       }
     },

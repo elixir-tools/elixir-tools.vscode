@@ -1,9 +1,10 @@
 import * as vscode from "vscode";
 
 import {
-  Executable,
   LanguageClient,
   LanguageClientOptions,
+  ServerOptions,
+  StreamInfo,
 } from "vscode-languageclient/node";
 
 let credoClient: LanguageClient;
@@ -18,10 +19,29 @@ export async function activate(context: vscode.ExtensionContext) {
 
     if (text.toString().includes("{:credo")) {
       if (config.get("enable")) {
-        const serverOptions: Executable = {
-          command: context.asAbsolutePath("./bin/credo-language-server"),
-          args: ["--stdio"],
-        };
+        let serverOptions: ServerOptions;
+
+        switch (config.get("adapter")) {
+          case "stdio":
+            serverOptions = {
+              command: context.asAbsolutePath("./bin/credo-language-server"),
+              args: ["--stdio"],
+            };
+            break;
+          case "tcp":
+            serverOptions = () => {
+              // Connect to language server via socket
+              let socket = require("net").connect({host: "127.0.0.1", port: config.get("port")});
+              let result: StreamInfo = {
+                writer: socket,
+                reader: socket,
+              };
+              return Promise.resolve(result);
+            };
+            break;
+          default:
+            throw new Error("boom");
+        }
         const clientOptions: LanguageClientOptions = {
           documentSelector: [{ scheme: "file", language: "elixir" }],
         };
