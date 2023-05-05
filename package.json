@@ -7,7 +7,7 @@
   "version": "0.0.4",
   "repository": {
     "type": "git",
-    "url": "https://github.com/elixir-tools/elixir-tools.vsode.git"
+    "url": "https://github.com/elixir-tools/elixir-tools.vscode.git"
   },
   "icon": "images/logo.png",
   "sponsor": {
@@ -24,7 +24,9 @@
     "elixir",
     "credo"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onLanguage:elixir"
+  ],
   "main": "./dist/extension.js",
   "contributes": {
     "configuration": {
