@@ -17,7 +17,7 @@ jobs:
       with:
         node-version: 16.x
         cache: 'yarn'
-    - run: yarn install
+    - run: yarn install --immutable
     - run: xvfb-run -a yarn test
       if: runner.os == 'Linux'
     - run: yarn test
