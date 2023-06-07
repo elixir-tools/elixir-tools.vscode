@@ -19,7 +19,7 @@ jobs:
     - name: Run ESLint
       run: yarn lint
     
-  build:
+  test:
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
