@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 
-import fetch from 'node-fetch';
+import fetch from "node-fetch";
 
 import {
   LanguageClient,
@@ -12,9 +12,17 @@ import {
 let credoClient: LanguageClient;
 
 async function latestRelease(): Promise<string> {
-  return fetch("https://api.github.com/repos/elixir-tools/credo-language-server/releases/latest", {headers: {["X-GitHub-Api-Version"]: "2022-11-28", ["Accept"]: "application/vnd.github+json"}})
-  .then(x => x.json())
-  .then((x: any): string => x.tag_name.replace(/^v/, ""));
+  return fetch(
+    "https://api.github.com/repos/elixir-tools/credo-language-server/releases/latest",
+    {
+      headers: {
+        ["X-GitHub-Api-Version"]: "2022-11-28",
+        ["Accept"]: "application/vnd.github+json",
+      },
+    }
+  )
+    .then((x) => x.json())
+    .then((x: any): string => x.tag_name.replace(/^v/, ""));
 }
 
 export async function activate(context: vscode.ExtensionContext) {
@@ -33,7 +41,9 @@ export async function activate(context: vscode.ExtensionContext) {
           case "stdio":
             serverOptions = {
               options: {
-                env: Object.assign({}, process.env, { ["CREDO_LSP_VERSION"]: await latestRelease() })
+                env: Object.assign({}, process.env, {
+                  ["CREDO_LSP_VERSION"]: await latestRelease(),
+                }),
               },
               command: context.asAbsolutePath("./bin/credo-language-server"),
               args: ["--stdio"],
@@ -42,7 +52,10 @@ export async function activate(context: vscode.ExtensionContext) {
           case "tcp":
             serverOptions = () => {
               // Connect to language server via socket
-              let socket = require("net").connect({host: "127.0.0.1", port: config.get("port")});
+              let socket = require("net").connect({
+                host: "127.0.0.1",
+                port: config.get("port"),
+              });
               let result: StreamInfo = {
                 writer: socket,
                 reader: socket,
