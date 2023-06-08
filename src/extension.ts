@@ -1,5 +1,7 @@
 import * as vscode from "vscode";
 
+import fetch from 'node-fetch';
+
 import {
   LanguageClient,
   LanguageClientOptions,
@@ -8,6 +10,12 @@ import {
 } from "vscode-languageclient/node";
 
 let credoClient: LanguageClient;
+
+async function latestRelease(): Promise<string> {
+  return fetch("https://api.github.com/repos/elixir-tools/credo-language-server/releases/latest", {headers: {["X-GitHub-Api-Version"]: "2022-11-28", ["Accept"]: "application/vnd.github+json"}})
+  .then(x => x.json())
+  .then((x: any): string => x.tag_name.replace(/^v/, ""));
+}
 
 export async function activate(context: vscode.ExtensionContext) {
   let files = await vscode.workspace.findFiles("mix.exs");
@@ -24,6 +32,9 @@ export async function activate(context: vscode.ExtensionContext) {
         switch (config.get("adapter")) {
           case "stdio":
             serverOptions = {
+              options: {
+                env: Object.assign({}, process.env, { ["CREDO_LSP_VERSION"]: await latestRelease() })
+              },
               command: context.asAbsolutePath("./bin/credo-language-server"),
               args: ["--stdio"],
             };
