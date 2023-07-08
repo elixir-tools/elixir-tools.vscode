@@ -35,7 +35,7 @@
         "elixir-tools.credo.enable": {
           "type": "boolean",
           "default": true,
-          "description": "Whether to start the Credo Language Server."
+          "markdownDescription": "Whether to start the _Credo Language Server_."
         },
         "elixir-tools.credo.adapter": {
           "type": "string",
@@ -44,17 +44,22 @@
             "tcp"
           ],
           "default": "stdio",
-          "description": "Which adapter to use when connecting to credo-language-server"
+          "markdownDescription": "Which adapter to use when connecting to the _Credo Language Server_."
         },
         "elixir-tools.credo.port": {
           "type": "integer",
           "default": 9000,
-          "description": "If adapter is `tcp`, use this port to connect."
+          "markdownDescription": "If adapter is `tcp`, use this port to connect."
+        },
+        "elixir-tools.credo.version": {
+          "type": "string",
+          "default": "latest",
+          "markdownDescription": "Defines specific version of the _Credo Language Server_.\n\nThe default `latest` value dynamically gets the latest release from the Github when extension is activated."
         },
         "elixir-tools.nextls.enable": {
           "type": "boolean",
           "default": false,
-          "description": "Whether to start NextLS."
+          "markdownDescription": "Whether to start the _NextLS_."
         },
         "elixir-tools.nextls.adapter": {
           "type": "string",
@@ -63,12 +68,17 @@
             "tcp"
           ],
           "default": "stdio",
-          "description": "Which adapter to use when connecting to NextLS"
+          "markdownDescription": "Which adapter to use when connecting to the _NextLS_."
         },
         "elixir-tools.nextls.port": {
           "type": "integer",
           "default": 9000,
-          "description": "If adapter is `tcp`, use this port to connect."
+          "markdownDescription": "If adapter is `tcp`, use this port to connect."
+        },
+        "elixir-tools.nextls.version": {
+          "type": "string",
+          "default": "latest",
+          "markdownDescription": "Defines specific version of the _NextLS_.\n\nThe default `latest` value dynamically gets the latest release from the Github when extension is activated."
         }
       }
     },
