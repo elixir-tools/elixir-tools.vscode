@@ -39,12 +39,16 @@ async function activateCredo(
 
       switch (config.get("adapter")) {
         case "stdio":
+          let version = config.get("version");
+
+          if (version === "latest") {
+            version = await latestRelease("credo-language-server");
+          }
+
           serverOptions = {
             options: {
               env: Object.assign({}, process.env, {
-                ["CREDO_LSP_VERSION"]: await latestRelease(
-                  "credo-language-server"
-                ),
+                ["CREDO_LSP_VERSION"]: version,
               }),
             },
             command: context.asAbsolutePath("./bin/credo-language-server"),
@@ -96,10 +100,16 @@ async function activateNextLS(
 
     switch (config.get("adapter")) {
       case "stdio":
+        let version = config.get("version");
+
+        if (version === "latest") {
+          version = await latestRelease("next-ls");
+        }
+
         serverOptions = {
           options: {
             env: Object.assign({}, process.env, {
-              ["NEXTLS_VERSION"]: await latestRelease("next-ls"),
+              ["NEXTLS_VERSION"]: version,
             }),
           },
           command: context.asAbsolutePath("./bin/nextls"),
