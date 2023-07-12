@@ -4,6 +4,13 @@ All notable changes to the "elixir-tools" extension will be documented in this f
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.3.0](https://github.com/elixir-tools/elixir-tools.vscode/compare/v0.2.2...v0.3.0) (2023-07-12)
+
+
+### Features
+
+* add version configuration to CredoLS and NextLS ([#29](https://github.com/elixir-tools/elixir-tools.vscode/issues/29)) ([1d62795](https://github.com/elixir-tools/elixir-tools.vscode/commit/1d627958421433cc44ac5524c7c8f29095dc002a))
+
 ## [0.2.2](https://github.com/elixir-tools/elixir-tools.vscode/compare/v0.2.1...v0.2.2) (2023-06-25)
 
 
