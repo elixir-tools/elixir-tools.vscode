@@ -35,7 +35,7 @@
         "elixir-tools.credo.enable": {
           "type": "boolean",
           "default": true,
-          "markdownDescription": "Whether to start **Credo Language Server_**"
+          "markdownDescription": "Whether to start **Credo Language Server**"
         },
         "elixir-tools.credo.adapter": {
           "type": "string",
