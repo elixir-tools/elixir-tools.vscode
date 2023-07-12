@@ -35,7 +35,7 @@
         "elixir-tools.credo.enable": {
           "type": "boolean",
           "default": true,
-          "markdownDescription": "Whether to start the _Credo Language Server_."
+          "markdownDescription": "Whether to start **Credo Language Server_**"
         },
         "elixir-tools.credo.adapter": {
           "type": "string",
@@ -44,7 +44,7 @@
             "tcp"
           ],
           "default": "stdio",
-          "markdownDescription": "Which adapter to use when connecting to the _Credo Language Server_."
+          "markdownDescription": "Which adapter to use when connecting to **Credo Language Server**."
         },
         "elixir-tools.credo.port": {
           "type": "integer",
@@ -54,12 +54,12 @@
         "elixir-tools.credo.version": {
           "type": "string",
           "default": "latest",
-          "markdownDescription": "Defines specific version of the _Credo Language Server_.\n\nThe default `latest` value dynamically gets the latest release from the Github when extension is activated."
+          "markdownDescription": "Specifies the version of **Credo Language Server**.\n\nDefaults to `latest`."
         },
         "elixir-tools.nextls.enable": {
           "type": "boolean",
           "default": false,
-          "markdownDescription": "Whether to start the _NextLS_."
+          "markdownDescription": "Whether to start **Next LS**."
         },
         "elixir-tools.nextls.adapter": {
           "type": "string",
@@ -68,7 +68,7 @@
             "tcp"
           ],
           "default": "stdio",
-          "markdownDescription": "Which adapter to use when connecting to the _NextLS_."
+          "markdownDescription": "Which adapter to use when connecting to **Next LS**."
         },
         "elixir-tools.nextls.port": {
           "type": "integer",
@@ -78,7 +78,7 @@
         "elixir-tools.nextls.version": {
           "type": "string",
           "default": "latest",
-          "markdownDescription": "Defines specific version of the _NextLS_.\n\nThe default `latest` value dynamically gets the latest release from the Github when extension is activated."
+          "markdownDescription": "Specifies the version of **Next LS**.\n\nDefaults to `latest`."
         }
       }
     },
