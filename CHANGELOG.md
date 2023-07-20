@@ -4,6 +4,13 @@ All notable changes to the "elixir-tools" extension will be documented in this f
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.3.1](https://github.com/elixir-tools/elixir-tools.vscode/compare/v0.3.0...v0.3.1) (2023-07-20)
+
+
+### Bug Fixes
+
+* **credo,nextls:** add trace setting ([#35](https://github.com/elixir-tools/elixir-tools.vscode/issues/35)) ([7c911da](https://github.com/elixir-tools/elixir-tools.vscode/commit/7c911da7688078b105c4cb56ed1a9295bfc291ce)), closes [#34](https://github.com/elixir-tools/elixir-tools.vscode/issues/34)
+
 ## [0.3.0](https://github.com/elixir-tools/elixir-tools.vscode/compare/v0.2.2...v0.3.0) (2023-07-12)
 
 
