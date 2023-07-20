@@ -56,6 +56,17 @@
           "default": "latest",
           "markdownDescription": "Specifies the version of **Credo Language Server**.\n\nDefaults to `latest`."
         },
+        "elixir-tools.credo.trace.server": {
+          "type": "string",
+          "scope": "window",
+          "enum": [
+            "off",
+            "messages",
+            "verbose"
+          ],
+          "default": "off",
+          "description": "Traces the communication between VS Code and the Next LS."
+        },
         "elixir-tools.nextls.enable": {
           "type": "boolean",
           "default": false,
@@ -79,6 +90,17 @@
           "type": "string",
           "default": "latest",
           "markdownDescription": "Specifies the version of **Next LS**.\n\nDefaults to `latest`."
+        },
+        "elixir-tools.nextls.trace.server": {
+          "type": "string",
+          "scope": "window",
+          "enum": [
+            "off",
+            "messages",
+            "verbose"
+          ],
+          "default": "off",
+          "description": "Traces the communication between VS Code and the Next LS."
         }
       }
     },
