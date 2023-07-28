@@ -4,6 +4,13 @@ All notable changes to the "elixir-tools" extension will be documented in this f
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.4.0](https://github.com/elixir-tools/elixir-tools.vscode/compare/v0.3.1...v0.4.0) (2023-07-28)
+
+
+### Features
+
+* activate on heex and surface files ([adc2067](https://github.com/elixir-tools/elixir-tools.vscode/commit/adc2067fe1e3c5398c99786c16b641ba4cc19c07)), closes [#31](https://github.com/elixir-tools/elixir-tools.vscode/issues/31)
+
 ## [0.3.1](https://github.com/elixir-tools/elixir-tools.vscode/compare/v0.3.0...v0.3.1) (2023-07-20)
 
 
