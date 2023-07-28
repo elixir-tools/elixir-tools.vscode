@@ -134,7 +134,11 @@ async function activateNextLS(
         throw new Error("boom");
     }
     const clientOptions: LanguageClientOptions = {
-      documentSelector: [{ scheme: "file", language: "elixir" }],
+      documentSelector: [
+        { scheme: "file", language: "elixir" },
+        { scheme: "file", language: "surface" },
+        { scheme: "file", language: "phoenix-heex" },
+      ],
     };
 
     nextLSClient = new LanguageClient(

@@ -18,14 +18,20 @@
   },
   "categories": [
     "Programming Languages",
-    "Linters"
+    "Linters",
+    "Formatters"
   ],
   "keywords": [
     "elixir",
+    "lsp",
+    "ls",
+    "nextls",
     "credo"
   ],
   "activationEvents": [
-    "onLanguage:elixir"
+    "onLanguage:elixir",
+    "onLanguage:phoenix-heex",
+    "onLanguage:surface"
   ],
   "main": "./dist/extension.js",
   "contributes": {
