@@ -97,6 +97,11 @@
           "default": "latest",
           "markdownDescription": "Specifies the version of **Next LS**.\n\nDefaults to `latest`."
         },
+        "elixir-tools.nextls.installationDirectory": {
+          "type": "string",
+          "default": "~/.cache/elixir-tools/nextls/bin/",
+          "description": "Overrides the default installation directory for the **Next LS** server binary."
+        },
         "elixir-tools.nextls.trace.server": {
           "type": "string",
           "scope": "window",

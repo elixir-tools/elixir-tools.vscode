@@ -1,4 +1,8 @@
 import * as vscode from "vscode";
+import * as os from "os";
+import * as path from "path";
+import * as fs from "fs";
+import * as fsp from "fs/promises";
 
 import fetch from "node-fetch";
 
@@ -90,7 +94,7 @@ async function activateCredo(
 }
 
 async function activateNextLS(
-  context: vscode.ExtensionContext,
+  _context: vscode.ExtensionContext,
   _mixfile: vscode.Uri
 ) {
   let config = vscode.workspace.getConfiguration("elixir-tools.nextls");
@@ -100,19 +104,13 @@ async function activateNextLS(
 
     switch (config.get("adapter")) {
       case "stdio":
-        let version = config.get("version");
-
-        if (version === "latest") {
-          version = await latestRelease("next-ls");
-        }
+        const command = await ensureNextLSDownloaded(
+          config.get("installationDirectory")!,
+          { force: true }
+        );
 
         serverOptions = {
-          options: {
-            env: Object.assign({}, process.env, {
-              ["NEXTLS_VERSION"]: version,
-            }),
-          },
-          command: context.asAbsolutePath("./bin/nextls"),
+          command,
           args: ["--stdio"],
         };
         break;
@@ -140,6 +138,8 @@ async function activateNextLS(
         { scheme: "file", language: "phoenix-heex" },
       ],
     };
+
+    console.log(serverOptions);
 
     nextLSClient = new LanguageClient(
       "elixir-tools.nextls",
@@ -175,4 +175,71 @@ export function deactivate() {
   }
 
   return true;
+}
+
+async function ensureNextLSDownloaded(
+  cacheDir: string,
+  opts: { force?: boolean } = {}
+): Promise<string> {
+  if (cacheDir[0] === "~") {
+    cacheDir = path.join(os.homedir(), cacheDir.slice(1));
+  }
+
+  const bin = path.join(cacheDir, "nextls");
+
+  if (opts.force || (await isBinaryMissing(bin))) {
+    await fsp.mkdir(cacheDir, { recursive: true });
+
+    const arch = "amd64"; // TODO
+    const platform = getPlatform();
+    const url = `https://github.com/elixir-tools/next-ls/releases/latest/download/next_ls_${platform}_${arch}`;
+
+    const shouldInstall = await vscode.window.showInformationMessage(
+      "Install Next LS?",
+      { modal: true, detail: `Downloading to '${cacheDir}'` },
+      "Yes"
+    );
+
+    if (shouldInstall !== "Yes") {
+      throw "Could not activate Next LS";
+    }
+
+    console.log(`Fetching Next LS: ${url}`);
+
+    await fetch(url).then(
+      (res) =>
+        new Promise((resolve, reject) => {
+          const file = fs.createWriteStream(bin);
+          res.body?.pipe(file);
+          file.on("close", resolve);
+          file.on("error", reject);
+        })
+    );
+
+    await fsp.chmod(bin, "755");
+  }
+
+  return bin;
+}
+
+async function isBinaryMissing(bin: string) {
+  try {
+    await fsp.access(bin, fs.constants.X_OK);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function getPlatform() {
+  switch (os.platform()) {
+    case "darwin":
+      return "darwin";
+    case "linux":
+      return "linux";
+    case "win32":
+      return "windows";
+    default:
+      throw `Unsupported platform: ${os.platform()}`;
+  }
 }
