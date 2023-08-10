@@ -4,6 +4,13 @@ All notable changes to the "elixir-tools" extension will be documented in this f
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.6.0](https://github.com/elixir-tools/elixir-tools.vscode/compare/v0.5.0...v0.6.0) (2023-08-10)
+
+
+### Features
+
+* download prebuilt Next LS binary ([#43](https://github.com/elixir-tools/elixir-tools.vscode/issues/43)) ([1924be1](https://github.com/elixir-tools/elixir-tools.vscode/commit/1924be16dacdcf0e550da911cf1515d74b1ad8ce))
+
 ## [0.5.0](https://github.com/elixir-tools/elixir-tools.vscode/compare/v0.4.0...v0.5.0) (2023-08-03)
 
 
