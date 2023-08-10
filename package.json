@@ -92,15 +92,10 @@
           "default": 9000,
           "markdownDescription": "If adapter is `tcp`, use this port to connect."
         },
-        "elixir-tools.nextls.version": {
-          "type": "string",
-          "default": "latest",
-          "markdownDescription": "Specifies the version of **Next LS**.\n\nDefaults to `latest`."
-        },
         "elixir-tools.nextls.installationDirectory": {
           "type": "string",
           "default": "~/.cache/elixir-tools/nextls/bin/",
-          "description": "Overrides the default installation directory for the **Next LS** server binary."
+          "markdownDescription": "Overrides the default installation directory for the **Next LS** server binary."
         },
         "elixir-tools.nextls.trace.server": {
           "type": "string",

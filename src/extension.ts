@@ -194,7 +194,7 @@ async function ensureNextLSDownloaded(
   if (shouldDownload) {
     await fsp.mkdir(cacheDir, { recursive: true });
 
-    const arch = os.arch();
+    const arch = getArch();
     const platform = getPlatform();
     const url = `https://github.com/elixir-tools/next-ls/releases/latest/download/next_ls_${platform}_${arch}`;
 
@@ -210,17 +210,21 @@ async function ensureNextLSDownloaded(
 
     console.log(`Fetching Next LS: ${url}`);
 
-    await fetch(url).then((res) =>
-      new Promise((resolve, reject) => {
-        const file = fs.createWriteStream(bin);
-        res.body?.pipe(file);
-        file.on("close", resolve);
-        file.on("error", reject);
-      })
-        .then(() => console.log("Downloaded NextLS!!"))
-        .catch(() => console.log("Failed to download NextLS!!"))
-    );
-    await fsp.chmod(bin, 755);
+    await fetch(url).then((res) => {
+      if (res.ok) {
+        return new Promise((resolve, reject) => {
+          const file = fs.createWriteStream(bin);
+          res.body?.pipe(file);
+          file.on("close", resolve);
+          file.on("error", reject);
+        })
+          .then(() => console.log("Downloaded NextLS!!"))
+          .catch(() => console.log("Failed to download NextLS!!"));
+      } else {
+        throw new Error(`Download failed (${url}, status=${res.status})`);
+      }
+    });
+    await fsp.chmod(bin, "755");
   }
 
   return bin;
@@ -232,6 +236,17 @@ async function isBinaryMissing(bin: string) {
     return false;
   } catch {
     return true;
+  }
+}
+
+function getArch() {
+  switch (os.arch()) {
+    case "x64":
+      return "amd64";
+    case "arm64":
+      return "arm64";
+    default:
+      throw new Error(`Unsupported architecture: ${os.arch()}`);
   }
 }
 
