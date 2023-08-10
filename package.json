@@ -26,6 +26,8 @@
     "lsp",
     "ls",
     "nextls",
+    "heex",
+    "surface",
     "credo"
   ],
   "activationEvents": [
@@ -92,10 +94,10 @@
           "default": 9000,
           "markdownDescription": "If adapter is `tcp`, use this port to connect."
         },
-        "elixir-tools.nextls.version": {
+        "elixir-tools.nextls.installationDirectory": {
           "type": "string",
-          "default": "latest",
-          "markdownDescription": "Specifies the version of **Next LS**.\n\nDefaults to `latest`."
+          "default": "~/.cache/elixir-tools/nextls/bin/",
+          "markdownDescription": "Overrides the default installation directory for the **Next LS** server binary."
         },
         "elixir-tools.nextls.trace.server": {
           "type": "string",
