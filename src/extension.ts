@@ -106,7 +106,7 @@ async function activateNextLS(
       case "stdio":
         const command = await ensureNextLSDownloaded(
           config.get("installationDirectory")!,
-          { force: true }
+          { force: false }
         );
 
         serverOptions = {
@@ -184,13 +184,17 @@ async function ensureNextLSDownloaded(
   if (cacheDir[0] === "~") {
     cacheDir = path.join(os.homedir(), cacheDir.slice(1));
   }
+  console.log(cacheDir);
 
   const bin = path.join(cacheDir, "nextls");
 
-  if (opts.force || (await isBinaryMissing(bin))) {
+  const shouldDownload = opts.force || (await isBinaryMissing(bin));
+  console.log(shouldDownload);
+
+  if (shouldDownload) {
     await fsp.mkdir(cacheDir, { recursive: true });
 
-    const arch = "amd64"; // TODO
+    const arch = os.arch();
     const platform = getPlatform();
     const url = `https://github.com/elixir-tools/next-ls/releases/latest/download/next_ls_${platform}_${arch}`;
 
@@ -201,22 +205,22 @@ async function ensureNextLSDownloaded(
     );
 
     if (shouldInstall !== "Yes") {
-      throw "Could not activate Next LS";
+      throw new Error("Could not activate Next LS");
     }
 
     console.log(`Fetching Next LS: ${url}`);
 
-    await fetch(url).then(
-      (res) =>
-        new Promise((resolve, reject) => {
-          const file = fs.createWriteStream(bin);
-          res.body?.pipe(file);
-          file.on("close", resolve);
-          file.on("error", reject);
-        })
+    await fetch(url).then((res) =>
+      new Promise((resolve, reject) => {
+        const file = fs.createWriteStream(bin);
+        res.body?.pipe(file);
+        file.on("close", resolve);
+        file.on("error", reject);
+      })
+        .then(() => console.log("Downloaded NextLS!!"))
+        .catch(() => console.log("Failed to download NextLS!!"))
     );
-
-    await fsp.chmod(bin, "755");
+    await fsp.chmod(bin, 755);
   }
 
   return bin;
@@ -225,9 +229,9 @@ async function ensureNextLSDownloaded(
 async function isBinaryMissing(bin: string) {
   try {
     await fsp.access(bin, fs.constants.X_OK);
-    return true;
-  } catch {
     return false;
+  } catch {
+    return true;
   }
 }
 
@@ -240,6 +244,6 @@ function getPlatform() {
     case "win32":
       return "windows";
     default:
-      throw `Unsupported platform: ${os.platform()}`;
+      throw new Error(`Unsupported platform: ${os.platform()}`);
   }
 }
