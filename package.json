@@ -26,6 +26,8 @@
     "lsp",
     "ls",
     "nextls",
+    "heex",
+    "surface",
     "credo"
   ],
   "activationEvents": [

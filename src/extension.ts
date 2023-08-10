@@ -139,8 +139,6 @@ async function activateNextLS(
       ],
     };
 
-    console.log(serverOptions);
-
     nextLSClient = new LanguageClient(
       "elixir-tools.nextls",
       "NextLS",
@@ -184,12 +182,9 @@ async function ensureNextLSDownloaded(
   if (cacheDir[0] === "~") {
     cacheDir = path.join(os.homedir(), cacheDir.slice(1));
   }
-  console.log(cacheDir);
-
   const bin = path.join(cacheDir, "nextls");
 
   const shouldDownload = opts.force || (await isBinaryMissing(bin));
-  console.log(shouldDownload);
 
   if (shouldDownload) {
     await fsp.mkdir(cacheDir, { recursive: true });
@@ -207,8 +202,6 @@ async function ensureNextLSDownloaded(
     if (shouldInstall !== "Yes") {
       throw new Error("Could not activate Next LS");
     }
-
-    console.log(`Fetching Next LS: ${url}`);
 
     await fetch(url).then((res) => {
       if (res.ok) {
@@ -240,13 +233,15 @@ async function isBinaryMissing(bin: string) {
 }
 
 function getArch() {
-  switch (os.arch()) {
+  const arch = os.arch();
+
+  switch (arch) {
     case "x64":
       return "amd64";
     case "arm64":
       return "arm64";
     default:
-      throw new Error(`Unsupported architecture: ${os.arch()}`);
+      throw new Error(`Unsupported architecture: ${arch}`);
   }
 }
 
