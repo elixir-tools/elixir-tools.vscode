@@ -122,7 +122,12 @@
         "configuration": "./elixir-language-configuration.json"
       }
     ],
-    "commands": [],
+    "commands": [
+      {
+        "command": "elixir-tools.uninstall-nextls",
+        "title": "elixir-tools: Uninstall Next LS"
+      }
+    ],
     "grammars": [
       {
         "language": "elixir",
@@ -140,6 +145,7 @@
     "watch-tests": "tsc -p . -w --outDir out",
     "pretest": "yarn run compile-tests && yarn run compile",
     "lint": "eslint src --ext ts",
+    "fix": "eslint src --ext ts --fix",
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
