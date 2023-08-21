@@ -94,20 +94,52 @@ async function activateCredo(
 }
 
 async function activateNextLS(
-  _context: vscode.ExtensionContext,
+  context: vscode.ExtensionContext,
   _mixfile: vscode.Uri
 ) {
   let config = vscode.workspace.getConfiguration("elixir-tools.nextls");
+
+  const command = "elixir-tools.uninstall-nextls";
+
+  const uninstallNextLS = async () => {
+    let cacheDir: string = config.get("installationDirectory")!;
+    if (cacheDir[0] === "~") {
+      cacheDir = path.join(os.homedir(), cacheDir.slice(1));
+    }
+    const bin = path.join(cacheDir, "nextls");
+    await fsp
+      .rm(bin)
+      .then(
+        async () =>
+          await vscode.window.showInformationMessage(
+            `Uninstalled Next LS from ${bin}`
+          )
+      )
+      .catch(
+        async () =>
+          await vscode.window.showErrorMessage(
+            `Failed to uninstall Next LS from ${bin}`
+          )
+      );
+  };
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand(command, uninstallNextLS)
+  );
 
   if (config.get("enable")) {
     let serverOptions: ServerOptions;
 
     switch (config.get("adapter")) {
       case "stdio":
-        const command = await ensureNextLSDownloaded(
-          config.get("installationDirectory")!,
-          { force: false }
-        );
+        let cacheDir: string = config.get("installationDirectory")!;
+
+        if (cacheDir[0] === "~") {
+          cacheDir = path.join(os.homedir(), cacheDir.slice(1));
+        }
+        const command = await ensureNextLSDownloaded(cacheDir, {
+          force: false,
+        });
 
         serverOptions = {
           command,
@@ -179,9 +211,6 @@ async function ensureNextLSDownloaded(
   cacheDir: string,
   opts: { force?: boolean } = {}
 ): Promise<string> {
-  if (cacheDir[0] === "~") {
-    cacheDir = path.join(os.homedir(), cacheDir.slice(1));
-  }
   const bin = path.join(cacheDir, "nextls");
 
   const shouldDownload = opts.force || (await isBinaryMissing(bin));
