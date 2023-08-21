@@ -4,6 +4,14 @@ All notable changes to the "elixir-tools" extension will be documented in this f
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.7.0](https://github.com/elixir-tools/elixir-tools.vscode/compare/v0.6.0...v0.7.0) (2023-08-21)
+
+
+### Features
+
+* **nextls:** enable auto update ([#47](https://github.com/elixir-tools/elixir-tools.vscode/issues/47)) ([59f00ad](https://github.com/elixir-tools/elixir-tools.vscode/commit/59f00ad22b1b49a57d64573d7387e75cce4a3ea3))
+* **nextls:** uninstall command ([#46](https://github.com/elixir-tools/elixir-tools.vscode/issues/46)) ([2f8f63f](https://github.com/elixir-tools/elixir-tools.vscode/commit/2f8f63f57f8b859c13b5898de2164f8a6e296d28))
+
 ## [0.6.0](https://github.com/elixir-tools/elixir-tools.vscode/compare/v0.5.0...v0.6.0) (2023-08-10)
 
 
