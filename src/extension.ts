@@ -142,6 +142,11 @@ async function activateNextLS(
         });
 
         serverOptions = {
+          options: {
+            env: Object.assign({}, process.env, {
+              ["NEXTLS_AUTO_UPDATE"]: true,
+            }),
+          },
           command,
           args: ["--stdio"],
         };
