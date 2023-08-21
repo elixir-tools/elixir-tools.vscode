@@ -137,10 +137,9 @@ async function activateNextLS(
         if (cacheDir[0] === "~") {
           cacheDir = path.join(os.homedir(), cacheDir.slice(1));
         }
-        const command = await ensureNextLSDownloaded(
-          cacheDir,
-          { force: false }
-        );
+        const command = await ensureNextLSDownloaded(cacheDir, {
+          force: false,
+        });
 
         serverOptions = {
           command,
