@@ -32,8 +32,12 @@ jobs:
           cache: 'yarn'
       - run: yarn install --immutable
 
-      - name: publish to marketplace
+      - name: publish to visual studio marketplace
         if: ${{ steps.release.outputs.release_created }}
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
         run: npx vsce publish
+
+      - name: publish to open vsx
+        if: ${{ steps.release.outputs.release_created }}
+        run: npx ovsx publish --yarn -p ${{ secrets.OPEN_VSX_PAT }}
