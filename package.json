@@ -42,7 +42,7 @@
       "properties": {
         "elixir-tools.credo.enable": {
           "type": "boolean",
-          "default": true,
+          "default": false,
           "markdownDescription": "Whether to start **Credo Language Server**"
         },
         "elixir-tools.credo.adapter": {
@@ -57,7 +57,7 @@
         "elixir-tools.credo.port": {
           "type": "integer",
           "default": 9000,
-          "markdownDescription": "If adapter is `tcp`, use this port to connect."
+          "markdownDescription": "If adapter is `tcp`, use this port to connect to a running server.\n\nYou can start the server with `path/to/credo-language-server --port <port>`."
         },
         "elixir-tools.credo.version": {
           "type": "string",
@@ -77,7 +77,7 @@
         },
         "elixir-tools.nextls.enable": {
           "type": "boolean",
-          "default": false,
+          "default": true,
           "markdownDescription": "Whether to start **Next LS**."
         },
         "elixir-tools.nextls.adapter": {
@@ -92,7 +92,7 @@
         "elixir-tools.nextls.port": {
           "type": "integer",
           "default": 9000,
-          "markdownDescription": "If adapter is `tcp`, use this port to connect."
+          "markdownDescription": "If adapter is `tcp`, use this port to connect to a running server.\n\nYou can start the server with `path/to/nextls --port <port>`."
         },
         "elixir-tools.nextls.installationDirectory": {
           "type": "string",

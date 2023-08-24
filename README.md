@@ -11,8 +11,8 @@ elixir-tools.vscode provides support for:
 
 * Filetype detection for .ex and .exs Elixir files
 * Syntax highlight for Elixir
-* [Next LS](https://www.elixir-tools.dev/next-ls) (disabled by default, will become enabled by default once it reaches feature parity with Elixir LS).
-* [Credo Language Server](https://github.com/elixir-tools/credo-language-server)
+* [Next LS](https://www.elixir-tools.dev/next-ls)
+* [Credo Language Server](https://github.com/elixir-tools/credo-language-server) (disabled by default, as Next LS has support for Credo diagnostics)
 
 ## Install
 
