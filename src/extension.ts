@@ -97,7 +97,7 @@ async function activateNextLS(
   context: vscode.ExtensionContext,
   _mixfile: vscode.Uri
 ) {
-  let config = vscode.workspace.getConfiguration("elixir-tools.nextls");
+  let config = vscode.workspace.getConfiguration("elixir-tools.nextLS");
 
   const command = "elixir-tools.uninstall-nextls";
 
@@ -177,7 +177,7 @@ async function activateNextLS(
     };
 
     nextLSClient = new LanguageClient(
-      "elixir-tools.nextls",
+      "elixir-tools.nextLS",
       "NextLS",
       serverOptions,
       clientOptions
