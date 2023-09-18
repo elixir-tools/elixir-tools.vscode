@@ -1,8 +1,8 @@
 {
   "name": "elixir-tools",
-  "displayName": "elixir-tools.vscode",
+  "displayName": "elixir-tools",
   "homepage": "https://github.com/elixir-tools/elixir-tools.vscode",
-  "description": "Elixir extension for VSCode.",
+  "description": "Elixir extension with support for Next LS and Credo Language Server",
   "publisher": "elixir-tools",
   "version": "0.8.0",
   "repository": {
@@ -37,81 +37,90 @@
   ],
   "main": "./dist/extension.js",
   "contributes": {
-    "configuration": {
-      "title": "elixir-tools",
-      "properties": {
-        "elixir-tools.credo.enable": {
-          "type": "boolean",
-          "default": false,
-          "markdownDescription": "Whether to start **Credo Language Server**"
-        },
-        "elixir-tools.credo.adapter": {
-          "type": "string",
-          "enum": [
-            "stdio",
-            "tcp"
-          ],
-          "default": "stdio",
-          "markdownDescription": "Which adapter to use when connecting to **Credo Language Server**."
-        },
-        "elixir-tools.credo.port": {
-          "type": "integer",
-          "default": 9000,
-          "markdownDescription": "If adapter is `tcp`, use this port to connect to a running server.\n\nYou can start the server with `path/to/credo-language-server --port <port>`."
-        },
-        "elixir-tools.credo.version": {
-          "type": "string",
-          "default": "latest",
-          "markdownDescription": "Specifies the version of **Credo Language Server**.\n\nDefaults to `latest`."
-        },
-        "elixir-tools.credo.trace.server": {
-          "type": "string",
-          "scope": "window",
-          "enum": [
-            "off",
-            "messages",
-            "verbose"
-          ],
-          "default": "off",
-          "description": "Traces the communication between VS Code and the Next LS."
-        },
-        "elixir-tools.nextls.enable": {
-          "type": "boolean",
-          "default": true,
-          "markdownDescription": "Whether to start **Next LS**."
-        },
-        "elixir-tools.nextls.adapter": {
-          "type": "string",
-          "enum": [
-            "stdio",
-            "tcp"
-          ],
-          "default": "stdio",
-          "markdownDescription": "Which adapter to use when connecting to **Next LS**."
-        },
-        "elixir-tools.nextls.port": {
-          "type": "integer",
-          "default": 9000,
-          "markdownDescription": "If adapter is `tcp`, use this port to connect to a running server.\n\nYou can start the server with `path/to/nextls --port <port>`."
-        },
-        "elixir-tools.nextls.installationDirectory": {
-          "type": "string",
-          "default": "~/.cache/elixir-tools/nextls/bin/",
-          "markdownDescription": "Overrides the default installation directory for the **Next LS** server binary."
-        },
-        "elixir-tools.nextls.trace.server": {
-          "type": "string",
-          "scope": "window",
-          "enum": [
-            "off",
-            "messages",
-            "verbose"
-          ],
-          "default": "off",
-          "description": "Traces the communication between VS Code and the Next LS."
+    "configuration": [
+      {
+        "title": "Next LS",
+        "properties": {
+          "elixir-tools.nextLS.enable": {
+            "type": "boolean",
+            "default": true,
+            "markdownDescription": "Whether to start **Next LS**.",
+            "order": 1
+          },
+          "elixir-tools.nextLS.adapter": {
+            "type": "string",
+            "enum": [
+              "stdio",
+              "tcp"
+            ],
+            "default": "stdio",
+            "markdownDescription": "Which adapter to use when connecting to **Next LS**."
+          },
+          "elixir-tools.nextLS.port": {
+            "type": "integer",
+            "default": 9000,
+            "markdownDescription": "If adapter is `tcp`, use this port to connect to a running server.\n\nYou can start the server with `path/to/nextls --port <port>`."
+          },
+          "elixir-tools.nextLS.installationDirectory": {
+            "type": "string",
+            "default": "~/.cache/elixir-tools/nextls/bin/",
+            "markdownDescription": "Overrides the default installation directory for the **Next LS** server binary."
+          },
+          "elixir-tools.nextLS.trace.server": {
+            "type": "string",
+            "scope": "window",
+            "enum": [
+              "off",
+              "messages",
+              "verbose"
+            ],
+            "default": "off",
+            "description": "Traces the communication between VS Code and the Next LS."
+          }
+        }
+      },
+      {
+        "title": "Credo Language Server",
+        "properties": {
+          "elixir-tools.credo.enable": {
+            "type": "boolean",
+            "default": false,
+            "markdownDescription": "Whether to start **Credo Language Server**",
+            "order": 1
+          },
+          "elixir-tools.credo.adapter": {
+            "type": "string",
+            "enum": [
+              "stdio",
+              "tcp"
+            ],
+            "default": "stdio",
+            "markdownDescription": "Which adapter to use when connecting to **Credo Language Server**."
+          },
+          "elixir-tools.credo.port": {
+            "type": "integer",
+            "default": 9000,
+            "markdownDescription": "If adapter is `tcp`, use this port to connect to a running server.\n\nYou can start the server with `path/to/credo-language-server --port <port>`."
+          },
+          "elixir-tools.credo.version": {
+            "type": "string",
+            "default": "latest",
+            "markdownDescription": "Specifies the version of **Credo Language Server**.\n\nDefaults to `latest`."
+          },
+          "elixir-tools.credo.trace.server": {
+            "type": "string",
+            "scope": "window",
+            "enum": [
+              "off",
+              "messages",
+              "verbose"
+            ],
+            "default": "off",
+            "description": "Traces the communication between VS Code and the Next LS."
+          }
         }
       }
-    },
+    ],
     "languages": [
       {
         "id": "elixir",
