@@ -18,6 +18,7 @@ jobs:
         with:
           release-type: node
           package-name: elixir-tools
+          bump-minor-pre-major: true
 
       - name: Checkout
         uses: actions/checkout@v3
