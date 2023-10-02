@@ -61,6 +61,16 @@
             "default": 9000,
             "markdownDescription": "If adapter is `tcp`, use this port to connect to a running server.\n\nYou can start the server with `path/to/nextls --port <port>`."
           },
+          "elixir-tools.nextLS.MIX_ENV": {
+            "type": "string",
+            "default": "dev",
+            "markdownDescription": "The MIX_ENV to use when starting the runtime for your project."
+          },
+          "elixir-tools.nextLS.MIX_TARGET": {
+            "type": "string",
+            "default": "host",
+            "markdownDescription": "The MIX_TARGET to use when starting the runtime for your project."
+          },
           "elixir-tools.nextLS.installationDirectory": {
             "type": "string",
             "default": "~/.cache/elixir-tools/nextls/bin/",

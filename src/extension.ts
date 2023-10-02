@@ -169,6 +169,12 @@ async function activateNextLS(
         throw new Error("boom");
     }
     const clientOptions: LanguageClientOptions = {
+      initializationOptions: {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        mix_env: config.get("MIX_ENV"),
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        mix_target: config.get("MIX_TARGET"),
+      },
       documentSelector: [
         { scheme: "file", language: "elixir" },
         { scheme: "file", language: "surface" },
