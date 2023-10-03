@@ -4,6 +4,13 @@ All notable changes to the "elixir-tools" extension will be documented in this f
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.10.1](https://github.com/elixir-tools/elixir-tools.vscode/compare/v0.10.0...v0.10.1) (2023-10-03)
+
+
+### Bug Fixes
+
+* recognize mix.lock as an Elixir file ([b41b838](https://github.com/elixir-tools/elixir-tools.vscode/commit/b41b8380cfc3876e435a043121b8fd5b7ec64c5b))
+
 ## [0.10.0](https://github.com/elixir-tools/elixir-tools.vscode/compare/v0.9.0...v0.10.0) (2023-10-02)
 
 
