@@ -174,6 +174,7 @@ async function activateNextLS(
         mix_env: config.get("MIX_ENV"),
         // eslint-disable-next-line @typescript-eslint/naming-convention
         mix_target: config.get("MIX_TARGET"),
+        experimental: config.get("experimental"),
       },
       documentSelector: [
         { scheme: "file", language: "elixir" },

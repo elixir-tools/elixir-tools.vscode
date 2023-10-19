@@ -71,6 +71,11 @@
             "default": "host",
             "markdownDescription": "The MIX_TARGET to use when starting the runtime for your project."
           },
+          "elixir-tools.nextLS.experimental.completions.enable": {
+            "type": "boolean",
+            "default": false,
+            "markdownDescription": "Whether to activate completions. Defaults to false."
+          },
           "elixir-tools.nextLS.installationDirectory": {
             "type": "string",
             "default": "~/.cache/elixir-tools/nextls/bin/",
