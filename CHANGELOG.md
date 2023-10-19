@@ -4,6 +4,13 @@ All notable changes to the "elixir-tools" extension will be documented in this f
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.11.0](https://github.com/elixir-tools/elixir-tools.vscode/compare/v0.10.1...v0.11.0) (2023-10-19)
+
+
+### Features
+
+* **nextls:** experimental settings ([89e200b](https://github.com/elixir-tools/elixir-tools.vscode/commit/89e200bf66cbc08a43f282d5095ac780b39d4a44))
+
 ## [0.10.1](https://github.com/elixir-tools/elixir-tools.vscode/compare/v0.10.0...v0.10.1) (2023-10-03)
 
 
