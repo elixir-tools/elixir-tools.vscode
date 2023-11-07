@@ -81,6 +81,16 @@
             "default": "~/.cache/elixir-tools/nextls/bin/",
             "markdownDescription": "Overrides the default installation directory for the **Next LS** server binary."
           },
+          "elixir-tools.nextLS.extensions.credo.enable": {
+            "type": "boolean",
+            "default": true,
+            "markdownDescription": "Controls whether the Credo extension is activated."
+          },
+          "elixir-tools.nextLS.extensions.credo.cli_options": {
+            "type": "array",
+            "default": [],
+            "markdownDescription": "Configures the CLI options to pass to the Credo extension."
+          },
           "elixir-tools.nextLS.trace.server": {
             "type": "string",
             "scope": "window",
