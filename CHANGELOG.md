@@ -4,6 +4,13 @@ All notable changes to the "elixir-tools" extension will be documented in this f
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.12.1](https://github.com/elixir-tools/elixir-tools.vscode/compare/v0.12.0...v0.12.1) (2023-12-18)
+
+
+### Bug Fixes
+
+* **syntax:** remove bc lc ([#71](https://github.com/elixir-tools/elixir-tools.vscode/issues/71)) ([37d8b72](https://github.com/elixir-tools/elixir-tools.vscode/commit/37d8b72d74d01817713877fefd3bc63243817afa))
+
 ## [0.12.0](https://github.com/elixir-tools/elixir-tools.vscode/compare/v0.11.0...v0.12.0) (2023-11-07)
 
 
