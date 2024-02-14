@@ -4,6 +4,13 @@ All notable changes to the "elixir-tools" extension will be documented in this f
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.13.0](https://github.com/elixir-tools/elixir-tools.vscode/compare/v0.12.1...v0.13.0) (2024-02-14)
+
+
+### Features
+
+* spitfire option ([#73](https://github.com/elixir-tools/elixir-tools.vscode/issues/73)) ([c6c870a](https://github.com/elixir-tools/elixir-tools.vscode/commit/c6c870ad894c8080bd79143ade5c1edcd0cedefa))
+
 ## [0.12.1](https://github.com/elixir-tools/elixir-tools.vscode/compare/v0.12.0...v0.12.1) (2023-12-18)
 
 
