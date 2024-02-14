@@ -145,6 +145,7 @@ async function activateNextLS(
           options: {
             env: Object.assign({}, process.env, {
               ["NEXTLS_AUTO_UPDATE"]: true,
+              ["NEXTLS_SPITFIRE_ENABLED"]: config.get("spitfire") ? 1 : 0,
             }),
           },
           command,
