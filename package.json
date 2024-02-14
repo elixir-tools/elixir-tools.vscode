@@ -71,6 +71,11 @@
             "default": "host",
             "markdownDescription": "The MIX_TARGET to use when starting the runtime for your project."
           },
+          "elixir-tools.nextLS.spitfire": {
+            "type": "boolean",
+            "default": false,
+            "markdownDescription": "Enables or disables the use of the Spitfire parser internally."
+          },
           "elixir-tools.nextLS.experimental.completions.enable": {
             "type": "boolean",
             "default": false,
