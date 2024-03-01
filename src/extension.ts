@@ -221,7 +221,7 @@ export function deactivate() {
   return true;
 }
 
-async function ensureNextLSDownloaded(
+export async function ensureNextLSDownloaded(
   cacheDir: string,
   opts: { force?: boolean } = {}
 ): Promise<string> {
@@ -239,10 +239,10 @@ async function ensureNextLSDownloaded(
     const shouldInstall = await vscode.window.showInformationMessage(
       "Install Next LS?",
       { modal: true, detail: `Downloading to '${cacheDir}'` },
-      "Yes"
+      { title: "Yes" }
     );
 
-    if (shouldInstall !== "Yes") {
+    if (shouldInstall?.title !== "Yes") {
       throw new Error("Could not activate Next LS");
     }
 
@@ -263,7 +263,7 @@ async function ensureNextLSDownloaded(
     await fsp.chmod(bin, "755");
   }
 
-  return bin;
+  return new Promise((resolve) => resolve(bin));
 }
 
 async function isBinaryMissing(bin: string) {
