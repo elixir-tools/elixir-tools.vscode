@@ -1,5 +1,6 @@
 import * as assert from "assert";
 import * as fs from "fs";
+import * as path from "path";
 
 // You can import and use all API from the 'vscode' module
 // as well as import your extension to test it
@@ -27,6 +28,6 @@ suite("Extension Test Suite", () => {
     fs.mkdirSync("./test-bin", { recursive: true });
 
     let result = await myExtension.ensureNextLSDownloaded("test-bin");
-    assert.equal(result, "test-bin/nextls");
+    assert.equal(path.normalize(result), path.normalize("test-bin/nextls"));
   });
 });
