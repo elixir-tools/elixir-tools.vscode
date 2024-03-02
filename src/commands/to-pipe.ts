@@ -8,8 +8,6 @@ import {
 export const run = async (client: LanguageClient) => {
   const position = vscode.window.activeTextEditor?.selection.start;
 
-  console.log(JSON.stringify(position));
-
   client.sendRequest(ExecuteCommandRequest.type, {
     command: "to-pipe",
     arguments: [
@@ -25,7 +23,6 @@ function registerToPipeCommand(
   client: LanguageClient,
   context: vscode.ExtensionContext
 ) {
-  console.log("what is happening");
   const toPipeCommand = "elixir-tools.toPipe";
   const toPipe = async () => run(client);
   context.subscriptions.push(
