@@ -30,6 +30,7 @@ function registerUninstallCommand(
 ) {
   const uninstallCommand = "elixir-tools.uninstall-nextls";
 
+  console.log("registering uninstall command");
   const uninstall = async () =>
     run(<string>config.get("installationDirectory"));
 
