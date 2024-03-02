@@ -9,6 +9,7 @@ import * as myExtension from "../../extension.js";
 import * as uninstall from "../../commands/uninstall.js";
 import * as sinon from "sinon";
 
+// TODO: should extract the tests to the directory of the file under test
 suite("Extension Test Suite", () => {
   vscode.window.showInformationMessage("Start all tests.");
   let showInformationMessage;
@@ -28,6 +29,7 @@ suite("Extension Test Suite", () => {
     sinon.restore();
   });
 
+  // TODO: should probably mock out the api calls to github
   test("downloads Next LS", async function () {
     fs.mkdirSync("./test-bin", { recursive: true });
 
@@ -44,6 +46,20 @@ suite("Extension Test Suite", () => {
     assert.equal(
       showInformationMessage.getCall(0).args[0],
       `Uninstalled Next LS from ${path.normalize("test-bin/nextls")}`
+    );
+  });
+
+  test("fails to uninstalls Next LS", async function () {
+    let showErrorMessage = sinon.stub(vscode.window, "showErrorMessage");
+    await uninstall.run("./test-bin");
+
+    assert.match(
+      showErrorMessage.getCall(0).args[0],
+      /Failed to uninstall Next LS from/
+    );
+    assert.match(
+      showErrorMessage.getCall(0).args[0],
+      /due to Error: ENOENT: no such file or directory, lstat/
     );
   });
 });
