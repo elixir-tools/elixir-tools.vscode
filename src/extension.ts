@@ -13,6 +13,8 @@ import {
   StreamInfo,
 } from "vscode-languageclient/node";
 
+import registerUninstallCommand from "./commands/uninstall";
+
 let credoClient: LanguageClient;
 let nextLSClient: LanguageClient;
 
@@ -99,33 +101,7 @@ async function activateNextLS(
 ) {
   let config = vscode.workspace.getConfiguration("elixir-tools.nextLS");
 
-  const command = "elixir-tools.uninstall-nextls";
-
-  const uninstallNextLS = async () => {
-    let cacheDir: string = config.get("installationDirectory")!;
-    if (cacheDir[0] === "~") {
-      cacheDir = path.join(os.homedir(), cacheDir.slice(1));
-    }
-    const bin = path.join(cacheDir, "nextls");
-    await fsp
-      .rm(bin)
-      .then(
-        async () =>
-          await vscode.window.showInformationMessage(
-            `Uninstalled Next LS from ${bin}`
-          )
-      )
-      .catch(
-        async () =>
-          await vscode.window.showErrorMessage(
-            `Failed to uninstall Next LS from ${bin}`
-          )
-      );
-  };
-
-  context.subscriptions.push(
-    vscode.commands.registerCommand(command, uninstallNextLS)
-  );
+  registerUninstallCommand(config, context);
 
   if (config.get("enable")) {
     let serverOptions: ServerOptions;

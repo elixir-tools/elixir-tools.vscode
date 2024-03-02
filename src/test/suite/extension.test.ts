@@ -6,18 +6,22 @@ import * as path from "path";
 // as well as import your extension to test it
 import * as vscode from "vscode";
 import * as myExtension from "../../extension.js";
+import * as uninstall from "../../commands/uninstall.js";
 import * as sinon from "sinon";
 
 suite("Extension Test Suite", () => {
   vscode.window.showInformationMessage("Start all tests.");
+  let showInformationMessage;
 
   setup(function () {
     fs.rmSync("./test-bin", { recursive: true, force: true });
-    sinon.stub(vscode.window, "showInformationMessage").returns(
-      new Promise((resolve) => {
-        return resolve({ title: "Yes" });
-      })
-    );
+    showInformationMessage = sinon
+      .stub(vscode.window, "showInformationMessage")
+      .returns(
+        new Promise((resolve) => {
+          return resolve({ title: "Yes" });
+        })
+      );
   });
 
   teardown(function () {
@@ -29,5 +33,17 @@ suite("Extension Test Suite", () => {
 
     let result = await myExtension.ensureNextLSDownloaded("test-bin");
     assert.equal(path.normalize(result), path.normalize("test-bin/nextls"));
+  });
+
+  test("uninstalls Next LS", async function () {
+    fs.mkdirSync("./test-bin", { recursive: true });
+    fs.writeFileSync("./test-bin/nextls", "hello word");
+
+    await uninstall.run("./test-bin");
+
+    assert.equal(
+      showInformationMessage.getCall(0).args[0],
+      `Uninstalled Next LS from ${path.normalize("test-bin/nextls")}`
+    );
   });
 });
