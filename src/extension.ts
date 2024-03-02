@@ -232,9 +232,9 @@ export async function ensureNextLSDownloaded(
   if (shouldDownload) {
     await fsp.mkdir(cacheDir, { recursive: true });
 
-    const arch = getArch();
     const platform = getPlatform();
-    const url = `https://github.com/elixir-tools/next-ls/releases/latest/download/next_ls_${platform}_${arch}`;
+    const exe = getExe(platform);
+    const url = `https://github.com/elixir-tools/next-ls/releases/latest/download/${exe}`;
 
     const shouldInstall = await vscode.window.showInformationMessage(
       "Install Next LS?",
@@ -275,14 +275,33 @@ async function isBinaryMissing(bin: string) {
   }
 }
 
-function getArch() {
+function getExe(platform: string) {
   const arch = os.arch();
 
-  switch (arch) {
-    case "x64":
-      return "amd64";
-    case "arm64":
-      return "arm64";
+  switch (platform) {
+    case "windows":
+      switch (arch) {
+        case "x64":
+          return "next_ls_windows_amd64.exe";
+      }
+    case "darwin":
+      switch (arch) {
+        case "x64":
+          return "next_ls_darwin_amd64";
+
+        case "arm64":
+          return "next_ls_darwin_amd64";
+      }
+
+    case "linux":
+      switch (arch) {
+        case "x64":
+          return "next_ls_linux_amd64";
+
+        case "arm64":
+          return "next_ls_linux_amd64";
+      }
+
     default:
       throw new Error(`Unsupported architecture: ${arch}`);
   }
