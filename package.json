@@ -179,37 +179,41 @@
     ]
   },
   "scripts": {
-    "vscode:prepublish": "yarn run package",
-    "compile": "webpack",
-    "watch": "webpack --watch",
-    "package": "webpack --mode production --devtool hidden-source-map",
+    "vscode:prepublish": "yarn run build-base --minify",
+    "package": "vsce package",
     "compile-tests": "tsc -p . --outDir out",
     "watch-tests": "tsc -p . -w --outDir out",
-    "pretest": "yarn run compile-tests && yarn run compile",
     "lint": "eslint src --ext ts",
     "fix": "eslint src --ext ts --fix",
+    "typecheck": "tsc",
+    "build-base": "esbuild ./src/extension.ts --bundle --outfile=out/extension.js --external:vscode --format=cjs --platform=node --target=node16",
+    "build": "yarn build-base --sourcemap",
+    "watch": "yarn build-base --sourcemap --watch",
+    "pretest": "yarn typecheck && yarn run build",
     "test": "node ./out/test/runTest.js"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^9.0.0"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^18.1.0",
     "@types/glob": "^8.1.0",
     "@types/mocha": "^10.0.1",
     "@types/node": "16.x",
+    "@types/sinon": "^17.0.3",
     "@types/vscode": "^1.77.0",
     "@typescript-eslint/eslint-plugin": "^5.56.0",
     "@typescript-eslint/parser": "^5.56.0",
     "@vscode/test-electron": "^2.3.0",
     "commitlint": "^18.2.0",
+    "esbuild": "^0.20.1",
     "eslint": "^8.36.0",
     "eslint-plugin-prettier": "^4.2.1",
     "glob": "^8.1.0",
-    "mocha": "^10.2.0",
+    "mocha": "^10.3.0",
     "node-fetch": "^3.3.1",
     "prettier": "^2.8.8",
-    "ts-loader": "^9.4.2",
-    "typescript": "^4.9.5",
-    "vscode-languageclient": "^8.1.0",
-    "webpack": "^5.76.3",
-    "webpack-cli": "^5.0.1"
+    "sinon": "^17.0.1",
+    "typescript": "^4.9.5"
   }
 }
