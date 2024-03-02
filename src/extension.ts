@@ -14,9 +14,15 @@ import {
 } from "vscode-languageclient/node";
 
 import registerUninstallCommand from "./commands/uninstall";
+import registerToPipeCommand from "./commands/to-pipe";
+import registerFromPipeCommand from "./commands/from-pipe";
 
 let credoClient: LanguageClient;
 let nextLSClient: LanguageClient;
+
+const channel = vscode.window.createOutputChannel("elixir-tools.vscode", {
+  log: true,
+});
 
 async function latestRelease(project: string): Promise<string> {
   return fetch(
@@ -101,8 +107,6 @@ async function activateNextLS(
 ) {
   let config = vscode.workspace.getConfiguration("elixir-tools.nextLS");
 
-  registerUninstallCommand(config, context);
-
   if (config.get("enable")) {
     let serverOptions: ServerOptions;
 
@@ -163,10 +167,14 @@ async function activateNextLS(
 
     nextLSClient = new LanguageClient(
       "elixir-tools.nextLS",
-      "NextLS",
+      "Next LS",
       serverOptions,
       clientOptions
     );
+
+    registerToPipeCommand(nextLSClient, context);
+    registerFromPipeCommand(nextLSClient, context);
+    registerUninstallCommand(config, context);
 
     // Start the nextLSClient. This will also launch the server
     nextLSClient.start();
@@ -206,21 +214,14 @@ export async function ensureNextLSDownloaded(
   const shouldDownload = opts.force || (await isBinaryMissing(bin));
 
   if (shouldDownload) {
+    channel.info("Next LS needs to be downloaded");
     await fsp.mkdir(cacheDir, { recursive: true });
 
     const platform = getPlatform();
     const exe = getExe(platform);
     const url = `https://github.com/elixir-tools/next-ls/releases/latest/download/${exe}`;
 
-    const shouldInstall = await vscode.window.showInformationMessage(
-      "Install Next LS?",
-      { modal: true, detail: `Downloading to '${cacheDir}'` },
-      { title: "Yes" }
-    );
-
-    if (shouldInstall?.title !== "Yes") {
-      throw new Error("Could not activate Next LS");
-    }
+    channel.info(`Starting download from ${url}`);
 
     await fetch(url).then((res) => {
       if (res.ok) {
@@ -230,10 +231,12 @@ export async function ensureNextLSDownloaded(
           file.on("close", resolve);
           file.on("error", reject);
         })
-          .then(() => console.log("Downloaded NextLS!!"))
-          .catch(() => console.log("Failed to download NextLS!!"));
+          .then(() => channel.info("Downloaded NextLS!"))
+          .catch(() =>
+            channel.error("Failed to write downloaded executable to a file")
+          );
       } else {
-        throw new Error(`Download failed (${url}, status=${res.status})`);
+        channel.error(`Failed to write download Next LS: status=${res.status}`);
       }
     });
     await fsp.chmod(bin, "755");
@@ -245,8 +248,10 @@ export async function ensureNextLSDownloaded(
 async function isBinaryMissing(bin: string) {
   try {
     await fsp.access(bin, fs.constants.X_OK);
+    channel.info(`Found Next LS executable at ${bin}`);
     return false;
   } catch {
+    channel.warn(`Did not find Next LS executable at ${bin}`);
     return true;
   }
 }
@@ -266,7 +271,7 @@ function getExe(platform: string) {
           return "next_ls_darwin_amd64";
 
         case "arm64":
-          return "next_ls_darwin_amd64";
+          return "next_ls_darwin_arm64";
       }
 
     case "linux":

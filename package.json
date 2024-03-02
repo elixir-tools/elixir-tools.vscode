@@ -168,6 +168,14 @@
       {
         "command": "elixir-tools.uninstall-nextls",
         "title": "elixir-tools: Uninstall Next LS"
+      },
+      {
+        "command": "elixir-tools.toPipe",
+        "title": "Convert to pipe (Next LS)"
+      },
+      {
+        "command": "elixir-tools.fromPipe",
+        "title": "Convert from pipe (Next LS)"
       }
     ],
     "grammars": [
@@ -182,6 +190,7 @@
     "vscode:prepublish": "yarn run build-base --minify",
     "package": "vsce package",
     "compile-tests": "tsc -p . --outDir out",
+    "compile-dist": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node --target=node16 --sourcemap",
     "watch-tests": "tsc -p . -w --outDir out",
     "lint": "eslint src --ext ts",
     "fix": "eslint src --ext ts --fix",
