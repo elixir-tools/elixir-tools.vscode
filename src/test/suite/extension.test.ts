@@ -16,13 +16,10 @@ suite("Extension Test Suite", () => {
 
   setup(function () {
     fs.rmSync("./test-bin", { recursive: true, force: true });
-    showInformationMessage = sinon
-      .stub(vscode.window, "showInformationMessage")
-      .returns(
-        new Promise((resolve) => {
-          return resolve({ title: "Yes" });
-        })
-      );
+    showInformationMessage = sinon.stub(
+      vscode.window,
+      "showInformationMessage"
+    );
   });
 
   teardown(function () {
@@ -62,4 +59,25 @@ suite("Extension Test Suite", () => {
       /due to Error: ENOENT: no such file or directory, lstat/
     );
   });
+
+  // TODO: make a test for the opposite case. As of right now, I'm not entirely
+  // sure how to set globalState inside a test before the extension activates.
+  test("forces a download if the special key is not set", async function () {
+    let fixpath = path.join(__dirname, "../../../src/test/fixtures/basic");
+    let binpath = path.join(fixpath, "test-bin");
+    fs.mkdirSync(binpath, { recursive: true });
+    fs.writeFileSync(path.join(binpath, "nextls"), "hello world");
+    let ext = vscode.extensions.getExtension("elixir-tools.elixir-tools");
+
+    await ext.activate();
+
+    const doc = await vscode.workspace.openTextDocument(
+      path.join(fixpath, "mix.exs")
+    );
+    await vscode.window.showTextDocument(doc);
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    let nextls = fs.readFileSync(path.join(binpath, "nextls"));
+    assert.notEqual("hello world", nextls);
+  }).timeout(5000);
 });

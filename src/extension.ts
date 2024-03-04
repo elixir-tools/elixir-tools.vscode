@@ -101,10 +101,29 @@ async function activateCredo(
   }
 }
 
+// In case the auto updater gets busted, we want the ability to force a download.
+// By incremented the key here, we should be able to force a download when the extension updates.
+export function forceDownload(context: vscode.ExtensionContext): boolean {
+  let forceDownload: boolean = context.globalState.get(
+    "elixir-tools-force-next-ls-download-v1"
+  );
+  channel.info(
+    `value of elixir-tools-force-next-ls-download-v1: ${forceDownload}`
+  );
+  if (forceDownload === undefined) {
+    forceDownload = true;
+  }
+
+  context.globalState.update("elixir-tools-force-next-ls-download-v1", false);
+
+  return forceDownload;
+}
+
 async function activateNextLS(
   context: vscode.ExtensionContext,
   _mixfile: vscode.Uri
 ) {
+  channel.info("activating next ls");
   let config = vscode.workspace.getConfiguration("elixir-tools.nextLS");
 
   if (config.get("enable")) {
@@ -113,12 +132,11 @@ async function activateNextLS(
     switch (config.get("adapter")) {
       case "stdio":
         let cacheDir: string = config.get("installationDirectory")!;
-
         if (cacheDir[0] === "~") {
           cacheDir = path.join(os.homedir(), cacheDir.slice(1));
         }
         const command = await ensureNextLSDownloaded(cacheDir, {
-          force: false,
+          force: forceDownload(context),
         });
 
         serverOptions = {
@@ -181,13 +199,18 @@ async function activateNextLS(
   }
 }
 
-export async function activate(context: vscode.ExtensionContext) {
+export async function activate(
+  context: vscode.ExtensionContext
+): Promise<vscode.ExtensionContext> {
   let files = await vscode.workspace.findFiles("mix.exs");
+  channel.info(`files: ${files[0]}`);
 
   if (files[0]) {
     await activateCredo(context, files[0]);
     await activateNextLS(context, files[0]);
   }
+
+  return context;
 }
 
 export function deactivate() {
