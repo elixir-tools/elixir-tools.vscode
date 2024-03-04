@@ -66,7 +66,10 @@ suite("Extension Test Suite", () => {
     let fixpath = path.join(__dirname, "../../../src/test/fixtures/basic");
     let binpath = path.join(fixpath, "test-bin");
     fs.mkdirSync(path.normalize(binpath), { recursive: true });
-    fs.writeFileSync(path.normalize(path.join(binpath, "nextls")), "hello world");
+    fs.writeFileSync(
+      path.normalize(path.join(binpath, "nextls")),
+      "hello world"
+    );
     let ext = vscode.extensions.getExtension("elixir-tools.elixir-tools");
 
     await ext.activate();
