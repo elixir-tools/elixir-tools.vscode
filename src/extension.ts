@@ -244,6 +244,7 @@ export async function ensureNextLSDownloaded(
     const exe = getExe(platform);
     const url = `https://github.com/elixir-tools/next-ls/releases/latest/download/${exe}`;
 
+    console.log(`Starting download from ${url}`);
     channel.info(`Starting download from ${url}`);
 
     await fetch(url).then((res) => {
@@ -255,10 +256,12 @@ export async function ensureNextLSDownloaded(
           file.on("error", reject);
         })
           .then(() => channel.info("Downloaded NextLS!"))
-          .catch(() =>
+          .catch(() => {
+            console.log("Failed to write downloaded executable to a file");
             channel.error("Failed to write downloaded executable to a file")
-          );
+          });
       } else {
+        console.log(`Failed to write download Next LS: status=${res.status}`);
         channel.error(`Failed to write download Next LS: status=${res.status}`);
       }
     });
