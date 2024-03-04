@@ -24,10 +24,10 @@ export const run = async (cacheDir: string) => {
     );
 };
 
-const registerUninstallCommand = (
+function registerUninstallCommand(
   config: vscode.WorkspaceConfiguration,
   context: vscode.ExtensionContext
-) => {
+) {
   const uninstallCommand = "elixir-tools.uninstall-nextls";
 
   const uninstall = async () =>
@@ -36,6 +36,6 @@ const registerUninstallCommand = (
   context.subscriptions.push(
     vscode.commands.registerCommand(uninstallCommand, uninstall)
   );
-};
+}
 
 export default registerUninstallCommand;
