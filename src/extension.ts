@@ -232,8 +232,8 @@ export async function ensureNextLSDownloaded(
   cacheDir: string,
   opts: { force?: boolean } = {}
 ): Promise<string> {
-  let bin
-  if (os.platform() == "win32") {
+  let bin: string;
+  if (os.platform() === "win32") {
     bin = path.join(cacheDir, "nextls.exe");
   } else {
     bin = path.join(cacheDir, "nextls");
@@ -263,7 +263,7 @@ export async function ensureNextLSDownloaded(
           .then(() => channel.info("Downloaded NextLS!"))
           .catch(() => {
             console.log("Failed to write downloaded executable to a file");
-            channel.error("Failed to write downloaded executable to a file")
+            channel.error("Failed to write downloaded executable to a file");
           });
       } else {
         console.log(`Failed to write download Next LS: status=${res.status}`);

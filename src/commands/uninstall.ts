@@ -3,9 +3,9 @@ import * as fsp from "fs/promises";
 import * as path from "path";
 import * as os from "os";
 
-let binName;
+let binName: string;
 
-if (os.platform() == "win32") {
+if (os.platform() === "win32") {
   binName = "nextls.exe";
 } else {
   binName = "nextls";

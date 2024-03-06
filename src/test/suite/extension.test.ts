@@ -10,9 +10,9 @@ import * as myExtension from "../../extension.js";
 import * as uninstall from "../../commands/uninstall.js";
 import * as sinon from "sinon";
 
-let binName;
+let binName: string;
 
-if (os.platform() == "win32") {
+if (os.platform() === "win32") {
   binName = "nextls.exe";
 } else {
   binName = "nextls";
@@ -69,7 +69,7 @@ suite("Extension Test Suite", () => {
     );
   });
 
-  if (os.platform() != "win32") {
+  if (os.platform() !== "win32") {
     // TODO: make a test for the opposite case. As of right now, I'm not entirely
     // sure how to set globalState inside a test before the extension activates.
     test("forces a download if the special key is not set", async function () {
