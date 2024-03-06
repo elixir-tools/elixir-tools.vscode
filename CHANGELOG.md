@@ -4,6 +4,18 @@ All notable changes to the "elixir-tools" extension will be documented in this f
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.14.0](https://github.com/elixir-tools/elixir-tools.vscode/compare/v0.13.0...v0.14.0) (2024-03-06)
+
+
+### Features
+
+* **nextls:** to-pipe and from-pipe ([#80](https://github.com/elixir-tools/elixir-tools.vscode/issues/80)) ([673e808](https://github.com/elixir-tools/elixir-tools.vscode/commit/673e8087cd5857ca6d5d84f7c7cdcc19a64834a4))
+
+
+### Bug Fixes
+
+* **nextls:** allow extension to force a download ([#81](https://github.com/elixir-tools/elixir-tools.vscode/issues/81)) ([80d84c2](https://github.com/elixir-tools/elixir-tools.vscode/commit/80d84c2dc69ac44a2bcf89a30247d1ec8fcb8be2))
+
 ## [0.13.0](https://github.com/elixir-tools/elixir-tools.vscode/compare/v0.12.1...v0.13.0) (2024-02-14)
 
 
