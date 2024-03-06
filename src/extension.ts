@@ -232,7 +232,12 @@ export async function ensureNextLSDownloaded(
   cacheDir: string,
   opts: { force?: boolean } = {}
 ): Promise<string> {
-  const bin = path.join(cacheDir, "nextls");
+  let bin
+  if (os.platform() == "win32") {
+    bin = path.join(cacheDir, "nextls.exe");
+  } else {
+    bin = path.join(cacheDir, "nextls");
+  }
 
   const shouldDownload = opts.force || (await isBinaryMissing(bin));
 

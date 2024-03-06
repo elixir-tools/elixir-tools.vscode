@@ -3,11 +3,19 @@ import * as fsp from "fs/promises";
 import * as path from "path";
 import * as os from "os";
 
+let binName;
+
+if (os.platform() == "win32") {
+  binName = "nextls.exe";
+} else {
+  binName = "nextls";
+}
+
 export const run = async (cacheDir: string) => {
   if (cacheDir[0] === "~") {
     cacheDir = path.join(os.homedir(), cacheDir.slice(1));
   }
-  const bin = path.join(cacheDir, "nextls");
+  const bin = path.join(cacheDir, binName);
   await fsp
     .rm(bin)
     .then(
