@@ -101,10 +101,29 @@ async function activateCredo(
   }
 }
 
+// In case the auto updater gets busted, we want the ability to force a download.
+// By incremented the key here, we should be able to force a download when the extension updates.
+export function forceDownload(context: vscode.ExtensionContext): boolean {
+  let forceDownload: boolean = context.globalState.get(
+    "elixir-tools-force-next-ls-download-v1"
+  );
+  channel.info(
+    `value of elixir-tools-force-next-ls-download-v1: ${forceDownload}`
+  );
+  if (forceDownload === undefined) {
+    forceDownload = true;
+  }
+
+  context.globalState.update("elixir-tools-force-next-ls-download-v1", false);
+
+  return forceDownload;
+}
+
 async function activateNextLS(
   context: vscode.ExtensionContext,
   _mixfile: vscode.Uri
 ) {
+  channel.info("activating next ls");
   let config = vscode.workspace.getConfiguration("elixir-tools.nextLS");
 
   if (config.get("enable")) {
@@ -113,12 +132,11 @@ async function activateNextLS(
     switch (config.get("adapter")) {
       case "stdio":
         let cacheDir: string = config.get("installationDirectory")!;
-
         if (cacheDir[0] === "~") {
           cacheDir = path.join(os.homedir(), cacheDir.slice(1));
         }
         const command = await ensureNextLSDownloaded(cacheDir, {
-          force: false,
+          force: forceDownload(context),
         });
 
         serverOptions = {
@@ -181,13 +199,18 @@ async function activateNextLS(
   }
 }
 
-export async function activate(context: vscode.ExtensionContext) {
+export async function activate(
+  context: vscode.ExtensionContext
+): Promise<vscode.ExtensionContext> {
   let files = await vscode.workspace.findFiles("mix.exs");
+  channel.info(`files: ${files[0]}`);
 
   if (files[0]) {
     await activateCredo(context, files[0]);
     await activateNextLS(context, files[0]);
   }
+
+  return context;
 }
 
 export function deactivate() {
@@ -209,7 +232,12 @@ export async function ensureNextLSDownloaded(
   cacheDir: string,
   opts: { force?: boolean } = {}
 ): Promise<string> {
-  const bin = path.join(cacheDir, "nextls");
+  let bin: string;
+  if (os.platform() === "win32") {
+    bin = path.join(cacheDir, "nextls.exe");
+  } else {
+    bin = path.join(cacheDir, "nextls");
+  }
 
   const shouldDownload = opts.force || (await isBinaryMissing(bin));
 
@@ -221,6 +249,7 @@ export async function ensureNextLSDownloaded(
     const exe = getExe(platform);
     const url = `https://github.com/elixir-tools/next-ls/releases/latest/download/${exe}`;
 
+    console.log(`Starting download from ${url}`);
     channel.info(`Starting download from ${url}`);
 
     await fetch(url).then((res) => {
@@ -232,10 +261,12 @@ export async function ensureNextLSDownloaded(
           file.on("error", reject);
         })
           .then(() => channel.info("Downloaded NextLS!"))
-          .catch(() =>
-            channel.error("Failed to write downloaded executable to a file")
-          );
+          .catch(() => {
+            console.log("Failed to write downloaded executable to a file");
+            channel.error("Failed to write downloaded executable to a file");
+          });
       } else {
+        console.log(`Failed to write download Next LS: status=${res.status}`);
         channel.error(`Failed to write download Next LS: status=${res.status}`);
       }
     });

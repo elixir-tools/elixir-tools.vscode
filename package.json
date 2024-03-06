@@ -198,7 +198,7 @@
     "build-base": "esbuild ./src/extension.ts --bundle --outfile=out/extension.js --external:vscode --format=cjs --platform=node --target=node16",
     "build": "yarn build-base --sourcemap",
     "watch": "yarn build-base --sourcemap --watch",
-    "pretest": "yarn typecheck && yarn run build",
+    "pretest": "yarn typecheck && yarn compile-dist && yarn build",
     "test": "node ./out/test/runTest.js"
   },
   "dependencies": {
