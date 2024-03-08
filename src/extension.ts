@@ -260,7 +260,7 @@ export async function ensureNextLSDownloaded(
           file.on("close", resolve);
           file.on("error", reject);
         })
-          .then(() => channel.info("Downloaded NextLS!"))
+          .then(() => channel.info("Downloaded Next LS!"))
           .catch(() => {
             console.log("Failed to write downloaded executable to a file");
             channel.error("Failed to write downloaded executable to a file");
