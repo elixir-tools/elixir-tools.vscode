@@ -4,6 +4,13 @@ All notable changes to the "elixir-tools" extension will be documented in this f
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.15.0](https://github.com/elixir-tools/elixir-tools.vscode/compare/v0.14.1...v0.15.0) (2024-04-20)
+
+
+### Features
+
+* alias-refactor command ([#86](https://github.com/elixir-tools/elixir-tools.vscode/issues/86)) ([ea0fc64](https://github.com/elixir-tools/elixir-tools.vscode/commit/ea0fc64f8c14e9f8f5bc72fab58be0cca3aadcba))
+
 ## [0.14.1](https://github.com/elixir-tools/elixir-tools.vscode/compare/v0.14.0...v0.14.1) (2024-03-08)
 
 
