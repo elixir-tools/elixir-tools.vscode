@@ -16,6 +16,7 @@ import {
 import registerUninstallCommand from "./commands/uninstall";
 import registerToPipeCommand from "./commands/to-pipe";
 import registerFromPipeCommand from "./commands/from-pipe";
+import registerAliasRefactorCommand from "./commands/alias-refactor";
 
 let credoClient: LanguageClient;
 let nextLSClient: LanguageClient;
@@ -193,6 +194,7 @@ async function activateNextLS(
     registerToPipeCommand(nextLSClient, context);
     registerFromPipeCommand(nextLSClient, context);
     registerUninstallCommand(config, context);
+    registerAliasRefactorCommand(nextLSClient, context);
 
     // Start the nextLSClient. This will also launch the server
     nextLSClient.start();
