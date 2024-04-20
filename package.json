@@ -176,6 +176,10 @@
       {
         "command": "elixir-tools.fromPipe",
         "title": "Convert from pipe (Next LS)"
+      },
+      {
+        "command": "elixir-tools.aliasRefactor",
+        "title": "Refactor a module to an alias (Next LS)"
       }
     ],
     "grammars": [
