@@ -16,7 +16,13 @@ elixir-tools.vscode provides support for:
 
 ## Install
 
+### From VSCode
+
 Install from the extension [marketplace](https://marketplace.visualstudio.com/items?itemName=elixir-tools.elixir-tools).
+
+### From VSCodium
+
+Install from the extension [marketplace](https://open-vsx.org/extension/elixir-tools/elixir-tools).
 
 ### From Source
 
